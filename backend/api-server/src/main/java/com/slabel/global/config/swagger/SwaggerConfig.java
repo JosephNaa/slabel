@@ -1,4 +1,4 @@
-package com.slabel.global.config.security.swagger;
+package com.slabel.global.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -39,6 +39,10 @@ public class AppUser implements UserDetails {
     private Boolean locked = false;
     private Boolean enabled =false;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "salt_id")
+    private Salt salt;
+
     public AppUser(String name,
                    String username,
                    String email,

@@ -2,7 +2,7 @@ package com.slabel.domain.registration.service;
 
 import com.slabel.domain.appuser.domain.AppUser;
 import com.slabel.domain.appuser.domain.AppUserRole;
-import com.slabel.domain.appuser.service.AppUserService;
+import com.slabel.domain.appuser.service.AppUserServiceImpl;
 import com.slabel.domain.registration.dto.ConfirmationToken;
 import com.slabel.domain.registration.dto.RegistrationRequest;
 import com.slabel.infra.email.EmailValidator;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class RegistrationService {
 
-    private final AppUserService appUserService;
+    private final AppUserServiceImpl appUserServiceImpl;
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
@@ -29,22 +29,22 @@ public class RegistrationService {
             throw new IllegalStateException("email not valid");
         }
 
-        String token = appUserService.signUpUser(
+        appUserServiceImpl.signUpUser(
                 new AppUser(
                         request.getName(),
                         request.getUsername(),
                         request.getEmail(),
                         request.getPassword(),
-                        AppUserRole.User
+                        AppUserRole.ROLE_USER
                 )
         );
 
-        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
-        emailSender.send(
-                request.getEmail(),
-                buildEmail(request.getName(), link));
+//        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+//        emailSender.send(
+//                request.getEmail(),
+//                buildEmail(request.getName(), link));
 
-        return token;
+        return "ok";
     }
 
     @Transactional
@@ -64,7 +64,7 @@ public class RegistrationService {
         }
 
         confirmationTokenService.setConfirmedAt(token);
-        appUserService.enableAppUser(
+        appUserServiceImpl.enableAppUser(
                 confirmationToken.getAppUser().getEmail()
         );
 
