@@ -81,17 +81,10 @@ public class AppUserServiceImpl implements UserDetailsService {
     }
 
     public AppUser loginUser(String username, String password) throws Exception {
-        System.out.println("!");
         AppUser appUser = appUserRepository.findByUsername(username);
         if (appUser == null) throw new Exception("유저 조회되지 않음");
-        System.out.println("appuser" + appUser);
         String salt = appUser.getSalt().getSalt();
-        System.out.println("salt" + salt);
         password = saltUtil.encodePassword(salt, password);
-        System.out.println("passowrd" + password);
-        System.out.println(password);
-
-        System.out.println(appUser.getPassword());
 
         if (!appUser.getPassword().equals(password)) {
             throw new Exception("비밀번호가 틀립니다.");
