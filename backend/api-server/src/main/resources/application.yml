@@ -16,6 +16,8 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     generate-ddl: true
+#    hibernate:
+#      ddl-auto: create-drop
   mail:
     host: localhost
     port: 1025
@@ -32,3 +34,10 @@ spring:
           connectiontimeout: 5000
           timeout: 3000
           writetimeout: 5000
+  jwt:
+    secret: slabelslabelslabelslabel
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379

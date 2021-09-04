@@ -1,6 +1,6 @@
 package com.slabel.global.config.security.config;
 
-import com.slabel.domain.appuser.service.AppUserService;
+import com.slabel.domain.appuser.service.AppUserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final AppUserService appUserService;
+    private final AppUserServiceImpl appUserServiceImpl;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -25,11 +25,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/api/v*/registration/**")
+                .antMatchers("/api/v*/registration/**")
+                    .permitAll()
+                .antMatchers("/api/v*/auth/**")
                     .permitAll()
                 .anyRequest()
-                .authenticated().and()
-                .formLogin();
+                .authenticated();
     }
 
     @Override
@@ -53,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 
         provider.setPasswordEncoder(bCryptPasswordEncoder);
-        provider.setUserDetailsService(appUserService);
+        provider.setUserDetailsService(appUserServiceImpl);
 
         return provider;
     }
