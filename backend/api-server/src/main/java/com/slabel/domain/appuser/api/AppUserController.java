@@ -42,29 +42,14 @@ public class AppUserController {
                           HttpServletRequest req,
                           HttpServletResponse res) {
         try {
-            System.out.println("0");
             AppUser appUser = appUserServiceImpl.loginUser(user.getUsername(), user.getPassword());
-            System.out.println("1");
             final String token = jwtUtil.generateToken(appUser);
-            System.out.println("2");
-
             final String refreshJwt = jwtUtil.generateRefreshToken(appUser);
-            System.out.println("3");
-
             Cookie accessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, token);
-            System.out.println("4");
-
             Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME, refreshJwt);
-            System.out.println("5");
-
             redisUtil.setDataExpire(refreshJwt, appUser.getUsername(), JwtUtil.REFRESH_TOKEN_VALIDATION_SECOND);
-            System.out.println("6");
-
             res.addCookie(accessToken);
-            System.out.println("7");
-
             res.addCookie(refreshToken);
-            System.out.println("8");
 
             return new Response("success", "로그인에 성공했습니다.", token);
         } catch (Exception e) {
