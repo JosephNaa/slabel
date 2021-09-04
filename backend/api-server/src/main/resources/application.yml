@@ -2,20 +2,20 @@ server:
   error:
     include-message: always
     include-binding-errors: always
+  address: localhost
+  port: 8080
 
 spring:
   datasource:
-    password: 
-    url: jdbc:postgresql://localhost:5432/slabel
-    username: postgres
+    password:
+    url: jdbc:mysql://localhost:3306/slabel?serverTimezone=Asia/Seoul
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
     show-sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: true
   mail:
     host: localhost
     port: 1025
