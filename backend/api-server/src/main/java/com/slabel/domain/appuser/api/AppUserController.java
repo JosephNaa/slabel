@@ -27,7 +27,9 @@ public class AppUserController {
     private AppUserServiceImpl appUserServiceImpl;
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
     private CookieUtil cookieUtil;
+    @Autowired
     private RedisUtil redisUtil;
 
     @Autowired

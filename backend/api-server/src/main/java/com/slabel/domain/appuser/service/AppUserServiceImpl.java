@@ -2,6 +2,7 @@ package com.slabel.domain.appuser.service;
 
 import com.slabel.domain.appuser.dao.AppUserRepository;
 import com.slabel.domain.appuser.domain.AppUser;
+import com.slabel.domain.appuser.domain.Salt;
 import com.slabel.domain.model.SecurityAppUser;
 import com.slabel.domain.registration.dto.ConfirmationToken;
 import com.slabel.domain.registration.service.ConfirmationTokenService;
@@ -44,7 +45,7 @@ public class AppUserServiceImpl implements UserDetailsService {
 
         String password = appUser.getPassword();
         String salt = saltUtil.genSalt();
-
+        appUser.setSalt(new Salt(salt));
         appUser.setPassword(saltUtil.encodePassword(salt, password));
 
         appUserRepository.save(appUser);
@@ -80,11 +81,14 @@ public class AppUserServiceImpl implements UserDetailsService {
     }
 
     public AppUser loginUser(String username, String password) throws Exception {
+        System.out.println("!");
         AppUser appUser = appUserRepository.findByUsername(username);
         if (appUser == null) throw new Exception("유저 조회되지 않음");
-
+        System.out.println("appuser" + appUser);
         String salt = appUser.getSalt().getSalt();
+        System.out.println("salt" + salt);
         password = saltUtil.encodePassword(salt, password);
+        System.out.println("passowrd" + password);
         System.out.println(password);
 
         System.out.println(appUser.getPassword());
@@ -93,9 +97,5 @@ public class AppUserServiceImpl implements UserDetailsService {
             throw new Exception("비밀번호가 틀립니다.");
         }
         return appUser;
-    }
-
-    public int enableAppUser(String email) {
-        return appUserRepository.enableAppUser(email);
     }
 }
