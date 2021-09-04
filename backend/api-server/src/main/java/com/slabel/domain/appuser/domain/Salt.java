@@ -1,9 +1,7 @@
 package com.slabel.domain.appuser.domain;
 
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -13,8 +11,6 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Salt {
 
     @Id
@@ -24,4 +20,11 @@ public class Salt {
     @NotNull()
     private String salt;
 
+    public Salt() {
+
+    }
+
+    public Salt(String salt) {
+        this.salt = salt;
+    }
 }

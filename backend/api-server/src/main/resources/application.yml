@@ -7,7 +7,7 @@ server:
 
 spring:
   datasource:
-    password:
+    password: g1379852
     url: jdbc:mysql://localhost:3306/slabel?serverTimezone=Asia/Seoul
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -35,7 +35,7 @@ spring:
           timeout: 3000
           writetimeout: 5000
   jwt:
-    secret: slabelslabelslabelslabel
+    secret: slabelslabelslabelslabelslabelslabelslabelslabelslabelslabelslabelslabelslabelslabelslabelslabelslabelslabelslabelslabelslabelslabelslabelslabel
   cache:
     type: redis
   redis:

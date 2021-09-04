@@ -34,8 +34,7 @@ public class RegistrationService {
                         request.getName(),
                         request.getUsername(),
                         request.getEmail(),
-                        request.getPassword(),
-                        AppUserRole.ROLE_USER
+                        request.getPassword()
                 )
         );
 
@@ -47,29 +46,29 @@ public class RegistrationService {
         return "ok";
     }
 
-    @Transactional
-    public String confirmToken(String token) {
-        ConfirmationToken confirmationToken = confirmationTokenService
-                .getToken(token)
-                .orElseThrow(() -> new IllegalStateException("token not found"));
-
-        if (confirmationToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("email already confirmed");
-        }
-
-        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
-
-        if (expiredAt.isBefore(LocalDateTime.now())) {
-            throw new IllegalStateException("token expired");
-        }
-
-        confirmationTokenService.setConfirmedAt(token);
-        appUserServiceImpl.enableAppUser(
-                confirmationToken.getAppUser().getEmail()
-        );
-
-        return "confirmed";
-    }
+//    @Transactional
+//    public String confirmToken(String token) {
+//        ConfirmationToken confirmationToken = confirmationTokenService
+//                .getToken(token)
+//                .orElseThrow(() -> new IllegalStateException("token not found"));
+//
+//        if (confirmationToken.getConfirmedAt() != null) {
+//            throw new IllegalStateException("email already confirmed");
+//        }
+//
+//        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
+//
+//        if (expiredAt.isBefore(LocalDateTime.now())) {
+//            throw new IllegalStateException("token expired");
+//        }
+//
+//        confirmationTokenService.setConfirmedAt(token);
+//        appUserServiceImpl.enableAppUser(
+//                confirmationToken.getAppUser().getEmail()
+//        );
+//
+//        return "confirmed";
+//    }
 
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
