@@ -6,8 +6,13 @@ server:
   port: 8080
 
 spring:
+  data:
+    mongodb:
+      database: slabel
+      port: 27017
+      host: localhost
   datasource:
-    password:
+    password: 
     url: jdbc:mysql://localhost:3306/slabel?serverTimezone=Asia/Seoul
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,8 +21,8 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     generate-ddl: true
-#    hibernate:
-#      ddl-auto: create-drop
+    hibernate:
+      ddl-auto: update      #create-drop
   mail:
     host: localhost
     port: 1025
