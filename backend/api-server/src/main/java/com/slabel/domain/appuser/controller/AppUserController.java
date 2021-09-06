@@ -1,12 +1,9 @@
-package com.slabel.domain.appuser.api;
+package com.slabel.domain.appuser.controller;
 
-import com.slabel.domain.appuser.dao.AppUserRepository;
 import com.slabel.domain.appuser.domain.AppUser;
-import com.slabel.domain.appuser.service.AppUserService;
 import com.slabel.domain.appuser.service.AppUserServiceImpl;
 import com.slabel.domain.model.Response;
 import com.slabel.domain.model.request.RequestLoginUser;
-import com.slabel.domain.registration.dto.RegistrationRequest;
 import com.slabel.global.util.CookieUtil;
 import com.slabel.global.util.JwtUtil;
 import com.slabel.global.util.RedisUtil;
